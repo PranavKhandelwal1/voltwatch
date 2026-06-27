@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:voltwatch/core/services/alert_service.dart';
 import 'package:voltwatch/core/services/notification_service.dart';
 import 'package:voltwatch/data/models/battery_log_model.dart';
 import 'package:voltwatch/presentation/screens/analytics_screen.dart';
@@ -26,22 +27,13 @@ class DashboardScreen extends ConsumerWidget {
         children: [
           const SizedBox(height: 30),
 
-          // Live battery gauge
+          // 1. Battery percentage UI
           batteryLevel.when(
-            data: (level) => Center(child: BatteryGauge(batteryLevel: level)),
-            loading: () => const Center(child: CircularProgressIndicator()),
-            error: (error, stack) => Center(child: Text(error.toString())),
-          ),
-
-          const SizedBox(height: 40),
-
-          // Live battery state
-          batteryState.when(
             data: (level) {
               final threshold = ref.watch(batteryThresholdProvider);
 
-              // Trigger notification when battery reaches threshold
-              if (level >= threshold) {
+              // Notification logic
+              if (AlertService.canNotify(level, threshold)) {
                 NotificationService.showBatteryAlert(level);
               }
 
@@ -51,77 +43,30 @@ class DashboardScreen extends ConsumerWidget {
             error: (error, stack) => Center(child: Text(error.toString())),
           ),
 
-          const SizedBox(height: 30),
+          const SizedBox(height: 40),
 
-          // Manual refresh fallback
-          ElevatedButton.icon(
-            onPressed: () {
-              ref.invalidate(batteryLevelStreamProvider);
-              ref.invalidate(batteryStateStreamProvider);
-            },
-            icon: const Icon(Icons.refresh),
-            label: const Text("Refresh Now"),
+          // 2. Battery charging/discharging state UI
+          batteryState.when(
+            data: (state) => Card(
+              elevation: 3,
+              child: Padding(
+                padding: const EdgeInsets.all(18),
+                child: Column(
+                  children: [
+                    const Text("Battery State"),
+                    const SizedBox(height: 10),
+                    Text(state.name.toUpperCase()),
+                  ],
+                ),
+              ),
+            ),
+            loading: () => const Center(child: CircularProgressIndicator()),
+            error: (error, stack) => Center(child: Text(error.toString())),
           ),
 
           const SizedBox(height: 20),
 
-          ElevatedButton.icon(
-            onPressed: () async {
-              final currentLevel = await ref
-                  .read(batteryServiceProvider)
-                  .getBatteryLevel();
-
-              final currentState = await ref
-                  .read(batteryServiceProvider)
-                  .getBatteryState();
-
-              final log = BatteryLog(
-                batteryLevel: currentLevel,
-                batteryState: currentState.name,
-                timestamp: DateTime.now(),
-              );
-
-              await ref.read(batteryRepositoryProvider).saveLog(log);
-              final logs = ref.read(batteryRepositoryProvider).getLogs();
-              print(logs.length);
-              // Refresh logs provider
-              ref.read(batteryLogsProvider.notifier).state = ref
-                  .read(batteryRepositoryProvider)
-                  .getLogs();
-
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text("Battery log saved")),
-              );
-            },
-            icon: const Icon(Icons.save),
-            label: const Text("Save Battery Log"),
-          ),
-
-          const SizedBox(height: 20),
-
-          ElevatedButton.icon(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const AnalyticsScreen()),
-              );
-            },
-            icon: const Icon(Icons.analytics),
-            label: const Text("View Analytics"),
-          ),
-
-          const SizedBox(height: 20),
-
-          ElevatedButton.icon(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const SettingsScreen()),
-              );
-            },
-            icon: const Icon(Icons.settings),
-            label: const Text("Battery Alert Settings"),
-          ),
+          // Buttons go here...
         ],
       ),
     );
