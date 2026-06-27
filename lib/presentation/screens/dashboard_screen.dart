@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:voltwatch/data/models/battery_log_model.dart';
+import 'package:voltwatch/presentation/screens/analytics_screen.dart';
 import '../viewmodels/battery_provider.dart';
 import '../widgets/battery_gauge.dart';
 import '../../data/models/battery_log_model.dart';
@@ -103,6 +104,19 @@ class DashboardScreen extends ConsumerWidget {
             },
             icon: const Icon(Icons.save),
             label: const Text("Save Battery Log"),
+          ),
+
+          const SizedBox(height: 20),
+
+          ElevatedButton.icon(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const AnalyticsScreen()),
+              );
+            },
+            icon: const Icon(Icons.analytics),
+            label: const Text("View Analytics"),
           ),
         ],
       ),
