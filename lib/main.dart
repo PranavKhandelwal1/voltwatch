@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:voltwatch/core/services/notification_service.dart';
 import 'core/services/storage_service.dart';
 import 'presentation/screens/dashboard_screen.dart';
 
@@ -9,6 +10,7 @@ void main() async {
 
   // Initialize local storage
   await StorageService.init();
+  await NotificationService.init();
 
   // Start app with Riverpod scope
   runApp(const ProviderScope(child: VoltWatchApp()));
