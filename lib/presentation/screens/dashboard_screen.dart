@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:voltwatch/core/services/notification_service.dart';
 import 'package:voltwatch/data/models/battery_log_model.dart';
 import 'package:voltwatch/presentation/screens/analytics_screen.dart';
+import 'package:voltwatch/presentation/screens/settings_screen.dart';
+import 'package:voltwatch/presentation/viewmodels/settings_provider.dart';
 import '../viewmodels/battery_provider.dart';
 import '../widgets/battery_gauge.dart';
 import '../../data/models/battery_log_model.dart';
@@ -34,28 +37,16 @@ class DashboardScreen extends ConsumerWidget {
 
           // Live battery state
           batteryState.when(
-            data: (state) => Card(
-              elevation: 3,
-              child: Padding(
-                padding: const EdgeInsets.all(18),
-                child: Column(
-                  children: [
-                    const Text(
-                      "Battery State",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    Text(
-                      state.name.toUpperCase(),
-                      style: const TextStyle(fontSize: 22),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            data: (level) {
+              final threshold = ref.watch(batteryThresholdProvider);
+
+              // Trigger notification when battery reaches threshold
+              if (level >= threshold) {
+                NotificationService.showBatteryAlert(level);
+              }
+
+              return Center(child: BatteryGauge(batteryLevel: level));
+            },
             loading: () => const Center(child: CircularProgressIndicator()),
             error: (error, stack) => Center(child: Text(error.toString())),
           ),
@@ -117,6 +108,19 @@ class DashboardScreen extends ConsumerWidget {
             },
             icon: const Icon(Icons.analytics),
             label: const Text("View Analytics"),
+          ),
+
+          const SizedBox(height: 20),
+
+          ElevatedButton.icon(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const SettingsScreen()),
+              );
+            },
+            icon: const Icon(Icons.settings),
+            label: const Text("Battery Alert Settings"),
           ),
         ],
       ),
