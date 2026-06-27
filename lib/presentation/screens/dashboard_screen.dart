@@ -90,7 +90,8 @@ class DashboardScreen extends ConsumerWidget {
               );
 
               await ref.read(batteryRepositoryProvider).saveLog(log);
-
+              final logs = ref.read(batteryRepositoryProvider).getLogs();
+              print(logs.length);
               // Refresh logs provider
               ref.read(batteryLogsProvider.notifier).state = ref
                   .read(batteryRepositoryProvider)

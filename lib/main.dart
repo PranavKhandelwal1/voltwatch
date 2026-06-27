@@ -11,11 +11,7 @@ void main() async {
   await StorageService.init();
 
   // Start app with Riverpod scope
-  runApp(
-    const ProviderScope(
-      child: VoltWatchApp(),
-    ),
-  );
+  runApp(const ProviderScope(child: VoltWatchApp()));
 }
 
 /// Root widget of VoltWatch app
