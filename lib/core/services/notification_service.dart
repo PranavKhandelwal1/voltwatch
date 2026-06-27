@@ -14,6 +14,12 @@ class NotificationService {
     const settings = InitializationSettings(android: androidSettings);
 
     await _notifications.initialize(settings: settings);
+
+    await _notifications
+        .resolvePlatformSpecificImplementation<
+          AndroidFlutterLocalNotificationsPlugin
+        >()
+        ?.requestNotificationsPermission();
   }
 
   /// Show battery threshold notification

@@ -66,7 +66,63 @@ class DashboardScreen extends ConsumerWidget {
 
           const SizedBox(height: 20),
 
-          // Buttons go here...
+          ElevatedButton.icon(
+            onPressed: () async {
+              final currentLevel = await ref
+                  .read(batteryServiceProvider)
+                  .getBatteryLevel();
+
+              final currentState = await ref
+                  .read(batteryServiceProvider)
+                  .getBatteryState();
+
+              final log = BatteryLog(
+                batteryLevel: currentLevel,
+                batteryState: currentState.name,
+                timestamp: DateTime.now(),
+              );
+
+              await ref.read(batteryRepositoryProvider).saveLog(log);
+              final logs = ref.read(batteryRepositoryProvider).getLogs();
+              print(logs.length);
+              // Refresh logs provider
+              ref.read(batteryLogsProvider.notifier).state = ref
+                  .read(batteryRepositoryProvider)
+                  .getLogs();
+
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text("Battery log saved")),
+              );
+            },
+            icon: const Icon(Icons.save),
+            label: const Text("Save Battery Log"),
+          ),
+
+          const SizedBox(height: 20),
+
+          ElevatedButton.icon(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const AnalyticsScreen()),
+              );
+            },
+            icon: const Icon(Icons.analytics),
+            label: const Text("View Analytics"),
+          ),
+
+          const SizedBox(height: 20),
+
+          ElevatedButton.icon(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const SettingsScreen()),
+              );
+            },
+            icon: const Icon(Icons.settings),
+            label: const Text("Battery Alert Settings"),
+          ),
         ],
       ),
     );
