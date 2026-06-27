@@ -1,0 +1,83 @@
+[33mcommit ee0e75d1941ff8a4651f2025d75eaab445a63e15[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: Pranav Khandelwal <pranavkhandelwal21@gmail.com>
+Date:   Sat Jun 27 11:50:35 2026 +0530
+
+    Add battery logs provider
+
+[33mcommit 5178634092bb024cc0a1ba1ecbd7d9830a08092e[m
+Author: Pranav Khandelwal <pranavkhandelwal21@gmail.com>
+Date:   Sat Jun 27 11:49:22 2026 +0530
+
+    Implement battery repository
+
+[33mcommit 5554c36dd7c1c6cdef3f6512e5ade0538c38dd3e[m
+Author: Pranav Khandelwal <pranavkhandelwal21@gmail.com>
+Date:   Sat Jun 27 11:48:11 2026 +0530
+
+    Add local datasource for battery logs
+
+[33mcommit 4fc1ca10a90c5007f456d83c179111a1c6cd03d3[m
+Author: Pranav Khandelwal <pranavkhandelwal21@gmail.com>
+Date:   Sat Jun 27 11:43:59 2026 +0530
+
+    Implement live dashboard updates
+
+[33mcommit 44d9bc324a5c461eba006182eaae1a42d91a87b9[m
+Author: Pranav Khandelwal <pranavkhandelwal21@gmail.com>
+Date:   Sat Jun 27 11:41:48 2026 +0530
+
+    Add real-time battery providers
+
+[33mcommit 19f0820a1efe0603fa583b44102d5e401d0e6486[m
+Author: Pranav Khandelwal <pranavkhandelwal21@gmail.com>
+Date:   Sat Jun 27 11:36:54 2026 +0530
+
+    Build battery dashboard UI
+
+[33mcommit 5a242f2377f80b79dfa3cc07adc033314642deae[m
+Author: Pranav Khandelwal <pranavkhandelwal21@gmail.com>
+Date:   Sat Jun 27 11:31:18 2026 +0530
+
+    Create custom battery gauge widget
+
+[33mcommit b91f2b229eb067b3ab422a456a404a6eb0f7d225[m
+Author: Pranav Khandelwal <pranavkhandelwal21@gmail.com>
+Date:   Sat Jun 27 11:30:01 2026 +0530
+
+    Add battery color utility
+
+[33mcommit 38b2554818c2b1676924ff05353b50ddb3a340ea[m
+Author: Pranav Khandelwal <pranavkhandelwal21@gmail.com>
+Date:   Sat Jun 27 11:28:32 2026 +0530
+
+    Add documentation comments for core files
+
+[33mcommit 36fecd1904ba4e78957af9a50a261516d45cfa4c[m
+Author: Pranav Khandelwal <pranavkhandelwal21@gmail.com>
+Date:   Sat Jun 27 11:16:12 2026 +0530
+
+    Setup app entry point with Riverpod and Hive
+
+[33mcommit 6c9e21a3772a359b24c11fa5845329e146d43105[m
+Author: Pranav Khandelwal <pranavkhandelwal21@gmail.com>
+Date:   Sat Jun 27 11:10:22 2026 +0530
+
+    Implement battery service
+
+[33mcommit 0afff0b0ece64c4b2a351ee1e26b6e383dab9390[m
+Author: Pranav Khandelwal <pranavkhandelwal21@gmail.com>
+Date:   Sat Jun 27 11:08:07 2026 +0530
+
+    Add battery log Hive model
+
+[33mcommit b4f6f91f37a8cbda49d0449ef7a39afc37f40cc2[m
+Author: Pranav Khandelwal <pranavkhandelwal21@gmail.com>
+Date:   Sat Jun 27 11:05:14 2026 +0530
+
+    Create clean architecture folder structure
+
+[33mcommit ff6077de41f8e675dab0469ed451ab411a596049[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Pranav Khandelwal <pranavkhandelwal21@gmail.com>
+Date:   Sat Jun 27 10:55:26 2026 +0530
+
+    Initial Flutter project setup
