@@ -4,9 +4,13 @@ import 'core/services/storage_service.dart';
 import 'presentation/screens/dashboard_screen.dart';
 
 void main() async {
+  // Required before using async plugins
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize local storage
   await StorageService.init();
 
+  // Start app with Riverpod scope
   runApp(
     const ProviderScope(
       child: VoltWatchApp(),
@@ -14,6 +18,7 @@ void main() async {
   );
 }
 
+/// Root widget of VoltWatch app
 class VoltWatchApp extends StatelessWidget {
   const VoltWatchApp({super.key});
 
@@ -21,7 +26,11 @@ class VoltWatchApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'VoltWatch',
+
+      // Hide debug banner
       debugShowCheckedModeBanner: false,
+
+      // Starting screen
       home: DashboardScreen(),
     );
   }
