@@ -8,15 +8,17 @@ import 'alert_service.dart';
 class BackgroundService {
   static Future<void> executeTask() async {
     final battery = Battery();
-
+    print("Background task started");
     // Fetch battery data
     final level = await battery.batteryLevel;
     final state = await battery.batteryState;
 
+    print("Battery Level: $level");
+    print("Battery State: ${state.name}");
     // Save to Hive
-    final batteryBox =
-        Hive.box<BatteryLog>('battery_logs');
-
+    final batteryBox = Hive.box<BatteryLog>('battery_logs');
+    print("Box opened successfully");
+    print("Saving battery log...");
     await batteryBox.add(
       BatteryLog(
         batteryLevel: level,
@@ -24,15 +26,16 @@ class BackgroundService {
         timestamp: DateTime.now(),
       ),
     );
-
+    print("Battery log saved successfully");
     // Read threshold
     final settingsBox = Hive.box('settings');
-    final threshold =
-        settingsBox.get('threshold', defaultValue: 80);
+    final threshold = settingsBox.get('threshold', defaultValue: 80);
 
     // Trigger alert
     if (AlertService.canNotify(level, threshold)) {
       await NotificationService.showBatteryAlert(level);
     }
+
+    print("Total logs: ${batteryBox.length}");
   }
 }

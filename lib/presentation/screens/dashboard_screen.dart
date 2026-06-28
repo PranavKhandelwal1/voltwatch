@@ -6,6 +6,7 @@ import 'package:voltwatch/data/models/battery_log_model.dart';
 import 'package:voltwatch/presentation/screens/analytics_screen.dart';
 import 'package:voltwatch/presentation/screens/settings_screen.dart';
 import 'package:voltwatch/presentation/viewmodels/settings_provider.dart';
+import '../../core/services/background_service.dart';
 import '../viewmodels/battery_provider.dart';
 import '../widgets/battery_gauge.dart';
 import '../../data/models/battery_log_model.dart';
@@ -122,6 +123,12 @@ class DashboardScreen extends ConsumerWidget {
             },
             icon: const Icon(Icons.settings),
             label: const Text("Battery Alert Settings"),
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              await BackgroundService.executeTask();
+            },
+            child: const Text("Run Background Test"),
           ),
         ],
       ),

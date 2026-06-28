@@ -7,7 +7,9 @@ import 'background_service.dart';
 /// Background task entry point
 @pragma('vm:entry-point')
 void callbackDispatcher() {
+  print("Dispatcher started");
   Workmanager().executeTask((task, inputData) async {
+    print("Task executing");
     WidgetsFlutterBinding.ensureInitialized();
 
     // Initialize Hive

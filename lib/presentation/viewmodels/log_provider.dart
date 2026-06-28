@@ -10,6 +10,6 @@ final batteryRepositoryProvider = Provider<BatteryRepository>((ref) {
 
 /// Stores all battery logs in memory
 final batteryLogsProvider =
-    StateProvider<List<BatteryLog>>((ref) {
+StateProvider<List<BatteryLog>>((ref) {
   return ref.read(batteryRepositoryProvider).getLogs();
 });
