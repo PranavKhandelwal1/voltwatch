@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../core/utils/battery_color_helper.dart';
 
-/// Custom circular battery indicator widget
+/// Modern glowing battery gauge
 class BatteryGauge extends StatelessWidget {
   final int batteryLevel;
 
@@ -12,15 +12,25 @@ class BatteryGauge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final batteryColor = BatteryColorHelper.getColor(batteryLevel);
+    final batteryColor =
+    BatteryColorHelper.getColor(batteryLevel);
 
-    return SizedBox(
-      width: 220,
-      height: 220,
+    return Container(
+      width: 250,
+      height: 250,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        boxShadow: [
+          BoxShadow(
+            color: batteryColor.withOpacity(0.35),
+            blurRadius: 35,
+            spreadRadius: 8,
+          ),
+        ],
+      ),
       child: Stack(
         alignment: Alignment.center,
         children: [
-          // Animated circular progress
           TweenAnimationBuilder<double>(
             tween: Tween(
               begin: 0,
@@ -28,29 +38,36 @@ class BatteryGauge extends StatelessWidget {
             ),
             duration: const Duration(seconds: 1),
             builder: (context, value, child) {
-              return CircularProgressIndicator(
-                value: value,
-                strokeWidth: 14,
-              color: batteryColor,
-                backgroundColor: Colors.grey.shade300,
+              return SizedBox(
+                width: 220,
+                height: 220,
+                child: CircularProgressIndicator(
+                  value: value,
+                  strokeWidth: 16,
+                  color: batteryColor,
+                  backgroundColor:
+                  Colors.white.withOpacity(0.2),
+                ),
               );
             },
           ),
 
-          // Battery percentage text
           Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment:
+            MainAxisAlignment.center,
             children: [
-              const Icon(
-                Icons.battery_full,
+              Icon(
+                Icons.battery_charging_full,
                 size: 50,
+                color: batteryColor,
               ),
               const SizedBox(height: 10),
               Text(
                 "$batteryLevel%",
                 style: const TextStyle(
-                  fontSize: 34,
+                  fontSize: 36,
                   fontWeight: FontWeight.bold,
+                  color: Colors.white,
                 ),
               ),
             ],
