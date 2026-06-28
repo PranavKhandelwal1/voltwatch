@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import '../../data/models/battery_log_model.dart';
 
 /// Single battery log item widget
@@ -26,7 +27,9 @@ class LogTile extends StatelessWidget {
         ),
 
         subtitle: Text(
-          log.timestamp.toString(),
+            DateFormat(
+              'dd MMM, hh:mm a',
+            ).format(log.timestamp)
         ),
 
         trailing: const Icon(Icons.battery_std),

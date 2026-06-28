@@ -9,7 +9,6 @@ import 'package:voltwatch/presentation/viewmodels/settings_provider.dart';
 import '../../core/services/background_service.dart';
 import '../viewmodels/battery_provider.dart';
 import '../widgets/battery_gauge.dart';
-import '../../data/models/battery_log_model.dart';
 import '../viewmodels/log_provider.dart';
 
 /// Main dashboard screen

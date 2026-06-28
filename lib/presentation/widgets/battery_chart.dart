@@ -32,17 +32,42 @@ class BatteryChart extends StatelessWidget {
 
             gridData: FlGridData(
               show: true,
+              horizontalInterval: 20,
             ),
 
             titlesData: FlTitlesData(
               leftTitles: AxisTitles(
                 sideTitles: SideTitles(
                   showTitles: true,
+                  interval: 20,
+                  getTitlesWidget: (value, meta) {
+                    return Text(
+                      "${value.toInt()}%",
+                    );
+                  },
                 ),
               ),
+
               bottomTitles: AxisTitles(
                 sideTitles: SideTitles(
                   showTitles: true,
+                  getTitlesWidget: (value, meta) {
+                    return Text(
+                      value.toInt().toString(),
+                    );
+                  },
+                ),
+              ),
+
+              topTitles: const AxisTitles(
+                sideTitles: SideTitles(
+                  showTitles: false,
+                ),
+              ),
+
+              rightTitles: const AxisTitles(
+                sideTitles: SideTitles(
+                  showTitles: false,
                 ),
               ),
             ),
@@ -51,14 +76,10 @@ class BatteryChart extends StatelessWidget {
               LineChartBarData(
                 spots: List.generate(
                   logs.length,
-                      (index) {
-                    return FlSpot(
-                      index.toDouble(),
-                      logs[index]
-                          .batteryLevel
-                          .toDouble(),
-                    );
-                  },
+                      (index) => FlSpot(
+                    index.toDouble(),
+                    logs[index].batteryLevel.toDouble(),
+                  ),
                 ),
                 isCurved: true,
                 barWidth: 3,
@@ -68,7 +89,7 @@ class BatteryChart extends StatelessWidget {
               ),
             ],
           ),
-        ),
+        )
       ),
     );
   }
