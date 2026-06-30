@@ -1,16 +1,36 @@
-# voltwatch
+# VoltWatch
 
-A new Flutter project.
+## Overview
+VoltWatch is a Flutter-based battery management utility that monitors battery percentage, charging state, historical logs, and threshold alerts.
 
-## Getting Started
+## Features
+- Real-time battery monitoring
+- Animated battery gauge
+- Persistent battery logging
+- Battery analytics chart
+- Threshold notifications
+- Background tracking using Workmanager
 
-This project is a starting point for a Flutter application.
+## Architecture
+- Clean Architecture
+- Riverpod state management
+- Repository pattern
 
-A few resources to get you started if this is your first Flutter project:
+## Tech Stack
+- Flutter
+- Riverpod
+- Hive
+- Workmanager
+- fl_chart
+- battery_plus
+- flutter_local_notifications
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Setup
+flutter pub get
+flutter run
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Build APK
+flutter build apk --release
+
+## Background Notes
+Workmanager stops when app is force-stopped due to Android limitations.
